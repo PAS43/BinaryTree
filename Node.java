@@ -13,25 +13,35 @@ public class Node{
         this.value = a;
     }
 
-    public Node insert(Integer i){
+    public Node(Node n) {
+        this.parent = n.parent;
+        this.left = n.left;
+        this.right = n.right;
+        this.value = n.value;
+    }
+
+    public Node insert(Node i){
         if(this.parent == null){
             this.parent = new Node(i);
             return null;
         }
-        if(i >= this.value){
+        if(i.value >= this.value){
             if(right == null){
-                new Node(i);
+                right = new Node(i);
+                right.parent = this;
                 return null;
             } else {
-                right.insert(i);
+                return this.right.insert(i);
             }
         }
 
-        if(i < this.value){
-            if(parent.left == null){
-                new Node(i);
+        if(i.value < this.value){
+            if(this.left == null){
+                left = new Node(i);
+                left.parent = this;
+                return null;
             } else {
-                left.insert(i);
+                return this.left.insert(i);
             }
         }
         return null;
